@@ -1,0 +1,49 @@
+﻿<Page x:Class="CW_WPF.View.AllBooksPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:local="clr-namespace:CW_WPF.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AllBooksPage" Background="LightGreen">
+
+    <Grid>
+        <ScrollViewer Background="Transparent">
+            <ListBox SelectedIndex="{Binding Index}" x:Name="bookList" Margin="20" ItemsSource="{Binding All_Books}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding open_BookPage}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="10" Width="270" Height="250" CornerRadius="10" >
+                          <StackPanel Orientation="Horizontal">
+                                <Border Width="150" Height="200" CornerRadius="10" Margin="5">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="1"/>
+                                    </Border.Effect>
+                                    <Border.Background>
+                                        <ImageBrush  ImageSource="{Binding Path=Image}" />
+                                    </Border.Background>
+                                </Border>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=Title}"  />
+                                    <TextBlock Text="{Binding Path=Ganre}"  />
+                                    <TextBlock Text="{Binding Path=Rate}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ListBox>
+        </ScrollViewer>
+      </Grid>
+</Page>

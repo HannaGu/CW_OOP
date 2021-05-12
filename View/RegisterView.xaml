@@ -1,0 +1,27 @@
+﻿<Window x:Class="CW_WPF.View.RegisterView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:CW_WPF.View"
+        mc:Ignorable="d"
+        Title="RegisterView" Height="450" Width="800">
+    <Grid>
+        <StackPanel VerticalAlignment="Center" Margin="0,0,-0.4,10" Height="410">
+            <TextBox Padding="2, 0,0,0" Text="{Binding firstname}" Height="30" Width="170" TextWrapping ="Wrap" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Имя"  materialDesign:TransitionAssist.DisableTransitions="True" Background="#FFD2D6D2"/>
+
+            <TextBox Padding="2, 0,0,0" Text="{Binding lastname}" Height="30" Width="170" TextWrapping ="Wrap" VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Фамилия"  materialDesign:TransitionAssist.DisableTransitions="True" Background="#FFD2D6D2"/>
+
+            <TextBox Padding="2, 0,0,0" Height="30" Width="170" Text="{Binding login}" materialDesign:HintAssist.Hint="Логин" VerticalContentAlignment="Center"  x:Name="login_textbox" Background="#FFD2D6D2" SelectionBrush="{x:Null}" />
+            <PasswordBox Padding="2, 0,0,0" materialDesign:HintAssist.Hint="Пароль" VerticalContentAlignment="Center" Height="30" Width="170" PasswordChanged="PasswordBox_PasswordChanged" x:Name="password_textbox" Background="#FFD2D6D2"  >
+            </PasswordBox>
+
+            <Button   Command="{Binding register}"   Height="Auto"   materialDesign:ButtonAssist.CornerRadius="8" Content="Зарегистрироваться" />
+
+            <Button   Command="{Binding back}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                  Height="Auto"  materialDesign:ButtonAssist.CornerRadius="8" Content="Назад" />
+            <TextBlock Text="{Binding ErrorMes}" Foreground="red" Width="240" Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="277,0,276.6,0" Height="35" />
+        </StackPanel>
+    </Grid>
+</Window>
