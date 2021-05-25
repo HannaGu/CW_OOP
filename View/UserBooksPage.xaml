@@ -6,18 +6,32 @@
        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:CW_WPF.View"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="UserBooksPage" Background="DarkKhaki">
+      mc:Ignorable="d" Background="#C2C3C3"
+      d:DesignHeight="600" d:DesignWidth="900"
+      Title="UserBooksPage">
 
     <Grid>
-        <!--<Grid.RowDefinitions>
+        <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="9*"/>
-        </Grid.RowDefinitions>-->
-        <!--<Button Margin="0 0 20 0"  HorizontalAlignment="Right" Content="{materialDesign:PackIcon Add}"/>-->
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
 
-        <ScrollViewer Background="Transparent" >
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Left" Margin="20 0 0 0">
+            <TextBox  materialDesign:HintAssist.Hint="ПОИСК" VerticalAlignment="Center" Width="200"/>
+            <Button Margin="20 0" Height="45" Width="45" Background="#515EC1"   Content="{materialDesign:PackIcon Search}" Command="{Binding search_Command}"/>
+
+            <Menu Height="30" Background="Transparent">
+                <MenuItem Header="СОРТИРОВКА"  FontSize="14" Foreground="#5D5A5E" FontFamily="Arial Rounded MT Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <MenuItem Header="ПО НАЗВАНИЮ" Background="Transparent" Command="{Binding name_Sorting}"/>
+                    <MenuItem Header="ПО АВТОРУ" Background="Transparent" Command="{Binding author_Sorting}" />
+                </MenuItem>
+            </Menu>
+            <Menu Height="30" Background="Transparent">
+                <MenuItem Header="ДОБАВИТЬ КНИГУ"  Command="{Binding open_AddWindow}"  FontSize="14" Foreground="#5D5A5E" FontFamily="Arial Rounded MT Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></MenuItem>
+                </Menu>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" Background="Transparent" >
                 <ListBox SelectedIndex="{Binding Index}" x:Name="bookList" Margin="20" ItemsSource="{Binding All_UserBooks}" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
@@ -37,11 +51,14 @@
                                             <ImageBrush  ImageSource="{Binding Path=Image}" />
                                         </Border.Background>
                                     </Border>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Path=Title}"  />
-                                        <TextBlock Text="{Binding Path=Rate}" />
-                                    </StackPanel>
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0">
+                                    <TextBlock Text="{Binding Path=Title}" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" />
+                                    <TextBlock Text="{Binding Path=Ganre}" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14"/>
+                                    <TextBlock Text="Рейтинг: " FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14">
+                                        <TextBlock Text="{Binding Path=Rate}" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14"/>
+                                        </TextBlock>
                                 </StackPanel>
+                            </StackPanel>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
