@@ -16,7 +16,6 @@ namespace CW_WPF.Model
         public string title;
         public string author;
         public string original_language;
-        public int year_of_release;
         public string description;
         public int rate;
         public byte[] image;
@@ -87,17 +86,7 @@ namespace CW_WPF.Model
             }
         }
 
-        public int Year_of_release
-        {
-            get { return year_of_release; }
-            set
-            {
-                year_of_release = value;
-                OnPropertyChanged("Year_of_release");
-            }
-        }
-
-
+       
         public string Description
         {
             get { return description; }
@@ -117,34 +106,6 @@ namespace CW_WPF.Model
                 OnPropertyChanged("Rate");
             }
         }
-
-        //public BitmapImage GetImage
-        //{
-        //    get
-        //    {
-        //        MemoryStream ms = new MemoryStream(image);
-        //        var img = new BitmapImage();
-        //        img.BeginInit();
-        //        img.StreamSource = ms;
-        //        img.CacheOption = BitmapCacheOption.OnLoad;
-        //        img.EndInit();
-        //        return img;
-        //    }
-        //}
-
-        //public Image GetImage
-        //{
-        //    get
-        //    {
-        //        MemoryStream ms = new MemoryStream(image);
-        //        Image img = System.Drawing.Image.FromStream(ms);
-        //        return img;
-        //    }
-        //    set {
-        //        OnPropertyChanged("GetImage");
-        //    }
-
-        //}
 
         public byte[] Image
         {
@@ -185,36 +146,32 @@ namespace CW_WPF.Model
         #endregion
 
         public Book() { }
-        public Book(string isbn, string title, string author, string original_language, int year_of_release, string description, int rate, byte[] image, string ganre)
+        public Book(string isbn, string title, string author, string original_language, string description, int rate, byte[] image, string ganre, bool is_custom)
         {
             this.isbn = isbn;
             this.title = title;
             this.author= author;
             this.original_language = original_language;
             this.description = description;
-            this.year_of_release = year_of_release;
+             this.rate = rate;
+            this.image = image;
+            this.ganre = ganre;
+            this.is_custom = is_custom;
+        
+        }
+
+        public Book(string isbn, string title, string author, string original_language, string description, int rate, byte[] image, string ganre)
+        {
+            this.isbn = isbn;
+            this.title = title;
+            this.author = author;
+            this.original_language = original_language;
+            this.description = description;
             this.rate = rate;
             this.image = image;
             this.ganre = ganre;
-        
+           
         }
-       
-        //private static BitmapImage LoadImage(byte[] imageData)
-        //{
-        //    if (imageData == null || imageData.Length == 0) return null;
-        //    var image = new BitmapImage();
-        //    using (var mem = new MemoryStream(imageData))
-        //    {
-        //        mem.Position = 0;
-        //        image.BeginInit();
-        //        image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-        //        image.CacheOption = BitmapCacheOption.OnLoad;
-        //        image.UriSource = null;
-        //        image.StreamSource = mem;
-        //        image.EndInit();
-        //    }
-        //    image.Freeze();
-        //    return image;
-        //}
+
     }
 }
