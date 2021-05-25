@@ -1,0 +1,25 @@
+﻿<Page x:Class="CW_WPF.View.AdminView_Users"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CW_WPF.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AdminView_Users">
+    <Grid>
+        <DataGrid HorizontalAlignment="Center"   ColumnWidth="150"  GridLinesVisibility="Horizontal"  ItemsSource="{Binding All_Users, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                   AutoGenerateColumns="False" IsReadOnly="True"  >
+
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="ID"  Binding="{Binding Path=Id_user}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Логин" Binding="{Binding  Path=Login }"></DataGridTextColumn>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Path=FirstName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=LastName}"></DataGridTextColumn>
+                <DataGridCheckBoxColumn  Header="Администратор" Binding="{Binding Path=Is_admin}"></DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+
+
+        </DataGrid>
+    </Grid>
+</Page>

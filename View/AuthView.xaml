@@ -5,23 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:CW_WPF.View"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Background="White" 
         Title="AuthView" Height="450" Width="800">
+    <Window.Resources>
+        <ControlTemplate TargetType="Button" x:Key="btTemplate">
+            <Border CornerRadius="8"   Background="#515EC1" Height="30"  >
+                <ContentControl Margin="5"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="{TemplateBinding Content}"  />
+            </Border>
+        </ControlTemplate>
+     </Window.Resources>
     <Grid>
         <StackPanel>
-            <TextBox Padding="2, 0,0,0" Height="30" Width="170" Text="{Binding login}" materialDesign:HintAssist.Hint="Логин" VerticalContentAlignment="Center"  x:Name="login_textbox" Background="#FFD2D6D2"  SelectionBrush="{x:Null}" />
-            <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" Padding="2, 0,0,0" materialDesign:HintAssist.Hint="Пароль" VerticalContentAlignment="Center" Height="30" Width="170"  x:Name="password_textbox" Background="#FFD2D6D2" RenderTransformOrigin="0.5,0.5" >
-            </PasswordBox>
-
-            <TextBlock Text="{Binding ErrorMes}" Foreground="Black" 
+            <StackPanel>
+                <TextBlock Text="Авторизация" FontFamily="Arial Rounded MT Bold" FontSize="30" Foreground="#515EC1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 50 0 0 " />
+                <TextBlock Text="{Binding ErrorMes}" Foreground="Black"  VerticalAlignment="Top" HorizontalAlignment="Center"  Height="40" Width="500" Margin="20"
                    Style="{StaticResource MaterialDesignBody2TextBlock}" TextDecorations="Underline"
                    TextAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Height="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBox Padding="2, 0,0,0" Height="30" Width="170" Text="{Binding login}" materialDesign:HintAssist.Hint="Логин" VerticalContentAlignment="Center"  x:Name="login_textbox" Background="#FFD2D6D2"  SelectionBrush="{x:Null}" />
+                <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" Padding="2, 0,0,0" materialDesign:HintAssist.Hint="Пароль" VerticalContentAlignment="Center" Height="30" Width="170"  x:Name="password_textbox" Background="#FFD2D6D2" RenderTransformOrigin="0.5,0.5" >
+                </PasswordBox>
 
-            <Button   Command="{Binding registration}"   Height="Auto"  materialDesign:ButtonAssist.CornerRadius="8" Content="Регистрация" />
+                <Button  Template="{DynamicResource btTemplate}" Command="{Binding registration}"   Height="Auto" Content="регистрация" Margin="0 10 0 0"/>
+                <Button   Template="{DynamicResource btTemplate}"  Command="{Binding auth}"  Height="Auto"  Content="войти" Margin="0 10 0 0"/>
+                <Button   Template="{DynamicResource btTemplate}" Command="{Binding close}"  Content="закрыть" Height="Auto" Margin="0 10 0 0" />
 
-            <Button    Command="{Binding auth}"  Height="Auto"  materialDesign:ButtonAssist.CornerRadius="8" Content="Войти"/>
-            <Button  Command="{Binding close}"  Content="Close" Height="Auto"  materialDesign:ButtonAssist.CornerRadius="8" Margin="0,0,-0.4,0" />
-
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

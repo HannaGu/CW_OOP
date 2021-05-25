@@ -4,13 +4,31 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:CW_WPF.View"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="AllBooksPage" Background="LightGreen">
+      mc:Ignorable="d" Background="#C2C3C3"
+      d:DesignHeight="500" d:DesignWidth="900"
+      Title="AllBooksPage" >
 
+    
     <Grid>
-        <ScrollViewer Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Left" Margin="20 0 0 0">
+            <TextBox  materialDesign:HintAssist.Hint="ПОИСК" VerticalAlignment="Center" Width="200" Text="{Binding SearchRequest, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Margin="20 0" Height="45" Width="45" Background="#515EC1"  Content="{materialDesign:PackIcon Search}" Command="{Binding search_Command}" />
+
+            <Menu Height="30" Background="Transparent">
+                <MenuItem Header="СОРТИРОВКА" FontSize="14" Foreground="#5D5A5E" FontFamily="Arial Rounded MT Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <MenuItem Header="ПО НАЗВАНИЮ" FontSize="12"  Foreground="#5D5A5E" Background="Transparent" FontFamily="Arial Rounded MT Bold" Command="{Binding name_Sorting}"/>
+                    <MenuItem Header="ПО АВТОРУ" FontSize="12"  Foreground="#5D5A5E" Background="Transparent" FontFamily="Arial Rounded MT Bold" Command="{Binding author_Sorting}" />
+                </MenuItem>
+            </Menu>
+            
+        </StackPanel>
+                <ScrollViewer Grid.Row="1"  Background="Transparent">
             <ListBox SelectedIndex="{Binding Index}" x:Name="bookList" Margin="20" ItemsSource="{Binding All_Books}" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
@@ -29,10 +47,12 @@
                                         <ImageBrush  ImageSource="{Binding Path=Image}" />
                                     </Border.Background>
                                 </Border>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Path=Title}"  />
-                                    <TextBlock Text="{Binding Path=Ganre}"  />
-                                    <TextBlock Text="{Binding Path=Rate}" />
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0">
+                                    <TextBlock Text="{Binding Path=Title}" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" />
+                                    <TextBlock Text="{Binding Path=Ganre}" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14"/>
+                                    <TextBlock Text="Рейтинг: " FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14">
+                                        <TextBlock Text="{Binding Path=Rate}" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14"/>
+                                        </TextBlock>
                                 </StackPanel>
                             </StackPanel>
                         </Border>

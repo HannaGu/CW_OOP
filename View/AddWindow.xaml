@@ -23,7 +23,7 @@
     </Window.Resources>
 
     <Grid>
-        <StackPanel  VerticalAlignment="Center">
+        <StackPanel  VerticalAlignment="Center" HorizontalAlignment="Center">
            
             <StackPanel  Orientation="Horizontal">
                 <StackPanel  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="60 0 0 0">
@@ -31,9 +31,7 @@
                     <TextBox Text="{Binding Author, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Height="30" Width="150" Padding="5,0,0,0" Background="#FFD2D6D2"  VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Автор"/>
                     <TextBox Text="{Binding Original_language, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Height="30" Width="150" Padding="5,0,0,0" Background="#FFD2D6D2"  VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Язык оригинала"/>
                     <TextBox Text="{Binding Description, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Height="30" Width="150" Padding="5,0,0,0" Background="#FFD2D6D2"  VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Описание"/>
-                    <Label Content="Ваша оценка: " />
-                    <TextBox Text="{Binding Rate, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Height="30" Width="150" Padding="5,0,0,0" Background="#FFD2D6D2"  VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Ваша оценка"/>
-                </StackPanel>
+                   </StackPanel>
 
                 <StackPanel Margin="60 0 0 0" VerticalAlignment="Center">
                     <Image  Width="100" Height="100" Source="{Binding Bin_Image}" />
@@ -43,13 +41,11 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="60 0 0 0">
-                    <Label Content="Год издания:"/>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Style="{StaticResource cbTB}" VerticalAlignment="Top" Text="{Binding Year_of_release, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="30" Width="150" Background="#FFD2D6D2"  VerticalContentAlignment="Center" />
-                        <CheckBox  x:Name="cb"  Content="Неизвестен"/>
-                    </StackPanel>
+                    <Label HorizontalAlignment="Left" Content="Ваша оценка: " />
+                    <TextBox HorizontalAlignment="Left" Text="{Binding Rate, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Height="30" Width="150" Padding="5,0,0,0" Background="#FFD2D6D2"  VerticalContentAlignment="Center" materialDesign:HintAssist.Hint="Ваша оценка"/>
+
                     <Label Content="Жанр:"/>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" SelectedItem="{Binding CBI, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="200"  SelectedItem="{Binding CBI, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
                         <ComboBoxItem Content="Классическая литература"/>
                         <ComboBoxItem Content="Фантастика"/>
                         <ComboBoxItem Content="Фэнтези"/>

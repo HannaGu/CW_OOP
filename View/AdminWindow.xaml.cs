@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CW_WPF.Model;
 using CW_WPF.ViewModel;
 
-namespace CW_WPF.View
+namespace CW_WPF.ViewModel
 {
-    public partial class AllBooksPage : Page
+    public partial class AdminWindow : Window
     {
-        AllBooksViewModel abvm;
-        public AllBooksPage(LibraryViewModel obj)
+        AdminViewModel avm;
+        public AdminWindow()
         {
-            abvm = new AllBooksViewModel(obj);
+            avm = new AdminViewModel();
             InitializeComponent();
-            DataContext = abvm;
+            DataContext = avm;
         }
-
-     
     }
 }
