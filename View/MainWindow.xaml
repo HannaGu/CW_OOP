@@ -7,37 +7,39 @@
         xmlns:local="clr-namespace:CW_WPF.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1050">
-
-     <Grid>
+    
+    
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="10*"/>
-        </Grid.RowDefinitions>
-        <Button Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Content="{materialDesign:PackIcon Add}" Margin="0 0 20 0" Command="{Binding open_AddWindow}"/>
-        <Frame Grid.Row="1" Grid.Column="1" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
+      
+         <Frame  Grid.Column="1" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
+        <StackPanel>
+            <Image Source="/Resources/book-open-page-variant-outline.png" Width="50" Height="50" Margin="20"/>
+            <Menu Grid.Row="1" Grid.Column="0" FontSize="14" Background="Transparent" Margin="20 0 20 0" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" >
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
 
-        <Menu Grid.Row="1" Grid.Column="0" FontSize="14" Background="Transparent">
-            <Menu.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Vertical"/>
-                </ItemsPanelTemplate>
-            </Menu.ItemsPanel>
+                <MenuItem Height="50" Header="библиотека" Command="{Binding open_Library}"/>
+                <MenuItem Height="50"  Header="избранное" Command="{Binding open_UserLibrary}" ></MenuItem>
+                <MenuItem Height="50"  Header="рекомендации" Command="{Binding open_Recom}" ></MenuItem>
 
-            <MenuItem Margin="5"  Header="Библиотека" Command="{Binding open_Library}"/>
-            <MenuItem Margin="5"  Header="Избранное" Command="{Binding open_UserLibrary}" ></MenuItem>
-            <MenuItem Margin="5"  Header="Статистика" Command="{Binding open_Stat}" ></MenuItem>
-            <MenuItem Margin="5"  Header="Рекомендации" Command="{Binding open_Recom}" ></MenuItem>
-            <MenuItem Margin="5"  Header="Сортировка" Command="{Binding sorting}" >
-                <MenuItem Header="По названию"/>
-                <MenuItem Header="По автору"/>
-                <MenuItem Header="По году"/>
-            </MenuItem>
-        </Menu>
-       
+                <MenuItem Height="50" Header="статистика" >
+                    <MenuItem Header="по количеству" Background="Transparent" Command="{Binding open_Stat}"/>
+                    <MenuItem Header="по жанрам" Background="Transparent" Command="{Binding open_GanreStat}"/>
+                </MenuItem>
+            </Menu>            
+        </StackPanel>
+        <StackPanel VerticalAlignment="Bottom" Margin="70">
+            <Button  Height="50" Width="50" Background="Black" Command="{Binding logout}">
+                <materialDesign:PackIcon Kind="ExitRun" Height="30" Width="30" HorizontalAlignment="Center"/>
+            </Button>
 
+        </StackPanel>
     </Grid>
 </Window>

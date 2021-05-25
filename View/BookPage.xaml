@@ -5,11 +5,25 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CW_WPF.View"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800" Background="Pink"
+      d:DesignHeight="450" d:DesignWidth="800" Background="#C2C3C3"
       Title="BookPage">
+
+    <Page.Resources>
+        <ControlTemplate TargetType="Button" x:Key="btTemplate">
+            <Border CornerRadius="8"   Background="#515EC1" Height="30"  >
+                <ContentControl Margin="5"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="{TemplateBinding Content}"  />
+            </Border>
+        </ControlTemplate>
+    </Page.Resources>
+
+
     <Grid>
+        <TextBlock Text="Инфо" FontFamily="Arial Rounded MT Bold" FontSize="30" Foreground="#515EC1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50 50 0 0 " />
+
+
         <Border Margin="30" >
             <StackPanel Orientation="Horizontal">
+
                 <Border Width="250" Height="300" CornerRadius="10" Margin="5">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="1"/>
@@ -18,26 +32,26 @@
                         <ImageBrush  ImageSource="{Binding Path=Image}" />
                     </Border.Background>
                 </Border>
-                <StackPanel>
-                     <TextBlock Text="{Binding Path=Title}" Height="20"/>
-                     <TextBlock Text="{Binding Path=Author}" Height="20"/>
-                    <TextBlock Text="Описание: ">
-                        <TextBlock Text="{Binding Path=Description}" Height="20"/>
+                <StackPanel Margin="80" Height="250">
+                    <TextBlock Text="{Binding Path=Title}" Height="20" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" />
+                    <TextBlock Text="{Binding Path=Author}" Height="20" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" />
+                    <TextBlock Text="Описание: " FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" >
+                        <TextBlock Text="{Binding Path=Description}" Height="20" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" />
+                    </TextBlock> 
+                    <TextBlock Text="Оценка: " FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" >
+                        <TextBlock Text="{Binding Path=Rate}" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14"  />
                     </TextBlock>
-                    <TextBlock Text="Оценка:">
-                        <TextBlock Text="{Binding Path=Rate}" />
+                    <TextBlock Text="Год издания: " FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" >
+                        <TextBlock Text="{Binding Path=Year_of_release}" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" />
                     </TextBlock>
-                    <TextBlock Text="Год издания:">
-                        <TextBlock Text="{Binding Path=Year_of_release}" />
+                    <TextBlock Text="Язык оригинала: " FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" >
+                        <TextBlock Text="{Binding Path=Original_language}" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" />
                     </TextBlock>
-                    <TextBlock Text="Язык оригинала:">
-                        <TextBlock Text="{Binding Path=Original_language}" />
+                    <TextBlock Text="Жанр: " FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" >
+                        <TextBlock Text="{Binding Path=Ganre}" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" FontSize="14" />
                     </TextBlock>
-                    <TextBlock Text="Жанр:">
-                        <TextBlock Text="{Binding Path=Ganre}" />
-                    </TextBlock>
-                    <Button VerticalAlignment="Bottom" Margin="0,0,0,20" Width="250" Background="#FFD2D6D2"     Content="Назад" Command="{Binding back}"/>
-                    <Button VerticalAlignment="Bottom" Margin="0,0,0,20" Width="250" Background="#FFD2D6D2"     Content="В избранное" Command="{Binding to_Favourites}"/>
+                    <Button VerticalAlignment="Bottom" Margin="0 20 0 0" Width="150" Template="{DynamicResource btTemplate}"  Content="назад" Command="{Binding back}"/>
+                    <Button VerticalAlignment="Bottom" Margin="0 10 0 0" Width="150" Template="{DynamicResource btTemplate}"  Content="в избранное" Command="{Binding to_Favourites}"/>
                 </StackPanel>
             </StackPanel>
         </Border>

@@ -5,10 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CW_WPF.View"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"  Background="Aqua"
+      d:DesignHeight="450" d:DesignWidth="800"  Background="#C2C3C3"
       Title="MainPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="22*"/>
+        </Grid.RowDefinitions>
+
     </Grid>
 </Page>
