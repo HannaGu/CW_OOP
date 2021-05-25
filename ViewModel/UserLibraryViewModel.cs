@@ -37,5 +37,7 @@ namespace CW_WPF.ViewModel
                 RaisePropertiesChanged(nameof(CurrentPage));
             }
         }
+
+      
     }
 }

@@ -11,20 +11,17 @@ using CW_WPF.Model;
 using CW_WPF.DB;
 using CW_WPF.View;
 using System.Windows.Controls;
-using System.Windows;
 
 namespace CW_WPF.ViewModel
 {
-    public class UserBookViewModel:ViewModelBase
+    public class AdminBookViewModel: ViewModelBase
     {
-        UserLibraryViewModel boss_page;
+        LibraryViewModel boss_page;
         public static Book selected_book;
         Progress p = new Progress();
         DataBaseUser dbu = new DataBaseUser();
-       
-        DateTime today = DateTime.Today;
 
-        public UserBookViewModel(Book obj1, UserLibraryViewModel obj2)
+        public AdminBookViewModel(Book obj1, LibraryViewModel obj2)
         {
             //p = dbu.GetProgress();
             selected_book = obj1;
@@ -38,11 +35,6 @@ namespace CW_WPF.ViewModel
             Rate = selected_book.rate;
             Image = selected_book.image;
             Ganre = selected_book.ganre;
-
-            if (selected_book.Is_Custom == false)
-            {
-                VisibilityIfCustom=Visibility.Hidden;
-            }
         }
 
 
@@ -51,11 +43,14 @@ namespace CW_WPF.ViewModel
             get { return p.status; }
             set
             {
-              p.status = value;
-              RaisePropertiesChanged(nameof(Status));
+                p.status = value;
+                RaisePropertiesChanged(nameof(Status));
             }
         }
-        
+        public bool IsAllowed
+        {
+            get { return selected_book.Is_custom == false; }
+        }
 
         private Page currentpage;
         public Page CurrentPage
@@ -71,18 +66,10 @@ namespace CW_WPF.ViewModel
             }
         }
 
-        private Visibility visibilityIfCustom;
-        public Visibility VisibilityIfCustom
-        {
-            get { return visibilityIfCustom; }
-            set { visibilityIfCustom = value; RaisePropertiesChanged(nameof(VisibilityIfCustom)); }
-        }
-
-
 
         #region Properties
         private string isbn;
-        public  string Isbn
+        public string Isbn
         {
             get
             {
@@ -203,29 +190,26 @@ namespace CW_WPF.ViewModel
         public ICommand back => new DelegateCommand(Back);
         private void Back()
         {
-            Page UserBooks_page = new UserBooksPage(boss_page);
-            boss_page.CurrentPage = UserBooks_page;
+            Page AdminBooks_page = new AllBooksPage(boss_page);
+            boss_page.CurrentPage = AdminBooks_page;
         }
         public ICommand delete => new DelegateCommand(Delete);
         private void Delete()
-        {         
+        {
             DB_GetItems db = new DB_GetItems();
-            db.DeleteUserBook(selected_book);
-            UserBooksViewModel.All_UserBooks.Remove(selected_book);
-            Page UserBooks_page = new UserBooksPage(boss_page);
-            boss_page.CurrentPage = UserBooks_page;}
+            //db.DeleteUserBook(selected_book);
+            //UserBooksViewModel.All_UserBooks.Remove(selected_book);
+            Page AllBooks = new AllBooksPage(boss_page);
+            boss_page.CurrentPage = AllBooks;
 
-        public ICommand update => new DelegateCommand(Update, CanUpdate);
+        }
+
+        public ICommand update => new DelegateCommand(Update);
         private void Update()
         {
-            UpdateWindow uw = new UpdateWindow(selected_book);
-            uw.Show();            
+            UpdateAdminBook uw = new UpdateAdminBook(selected_book);
+            uw.Show();
         }
-        private bool CanUpdate()
-        {
-            if (selected_book.Is_Custom)
-                return true;
-            else return false;
-        }
+
     }
 }

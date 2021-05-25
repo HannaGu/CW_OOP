@@ -19,7 +19,7 @@ namespace CW_WPF.ViewModel
     public class AddViewModel:ViewModelBase
     {
         Book book=new Book();
-               
+             
         public byte[] Bin_Image
         {
             get
@@ -103,19 +103,7 @@ namespace CW_WPF.ViewModel
             }
         }
        
-        public int Year_of_release
-        {
-            get
-            {
-                return book.year_of_release;
-            }
-            set
-            {
-                book.year_of_release = value;
-                RaisePropertiesChanged(nameof(Year_of_release));
-            }
-        }
-  
+     
         public string Description
         {
             get
@@ -162,6 +150,7 @@ namespace CW_WPF.ViewModel
             try
             {
                 DB_GetItems db = new DB_GetItems();
+                DataBaseUser db_User = new DataBaseUser();
                 bool fl = true;
                 ErrorMes = "";
                 if (book.Title == String.Empty || book.Title == null || book.Author == String.Empty || book.Author == null || book.Description == null || book.Description == String.Empty || book.Image == null)
@@ -174,16 +163,20 @@ namespace CW_WPF.ViewModel
                     fl = false;
                     ErrorMes = Properties.Resources.rateerr;
                 }
-                if(book.Year_of_release>DateTime.Now.Year||book.Year_of_release<0)
-                {
-                    fl = false;
-                    ErrorMes = Properties.Resources.yearerr;    
-                }
+               
 
                 if (fl)
                 {
-                    db.AddUserBook(book);
-                    UserBooksViewModel.All_UserBooks.Add(book);
+                    if (db_User.GetIsAdminUser(Properties.Settings.Default.IdUser))
+                    {
+                        db.AddBook(book);
+                        AllBooksViewModel.All_Books.Add(book);
+                    }
+                    else
+                    {
+                        db.AddUserBook(book);
+                        UserBooksViewModel.All_UserBooks.Add(book);
+                    }
                     MessageBox.Show("Книга добавлена!", "Все хорошо!");
                 }
             }

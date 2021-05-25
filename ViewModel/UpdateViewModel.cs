@@ -17,12 +17,14 @@ namespace CW_WPF.ViewModel
 {
    public class UpdateViewModel:ViewModelBase
     {
+        DataBaseUser db_User = new DataBaseUser();
         Book book = new Book();
+        Progress progress = new Progress();
+        DateTime today = DateTime.Today;
         public UpdateViewModel(Book b)
         {
             book = b;
         }
-
      
         public string Ganre
         {
@@ -36,7 +38,17 @@ namespace CW_WPF.ViewModel
                 RaisePropertiesChanged(nameof(Ganre));
             }
         }
-        
+        public string Status
+        {
+            get
+            {
+                return progress.status;
+            }
+            set { progress.status = Convert.ToString(value);
+                RaisePropertiesChanged(nameof(Status));
+            }
+        }
+
         ComboBoxItem cbi;
         public ComboBoxItem CBI
         {
@@ -49,6 +61,22 @@ namespace CW_WPF.ViewModel
                 cbi = value;
                 Ganre = cbi.Content.ToString();
                 RaisePropertiesChanged(nameof(CBI));
+            }
+        }
+
+        ComboBoxItem cbi_progress;
+        public ComboBoxItem CBI_Progress
+        {
+            get
+            {
+                return cbi_progress;
+            }
+            set
+            {
+                cbi_progress = value;
+                progress.date_change = today;
+                Status = cbi_progress.Content.ToString();
+                RaisePropertiesChanged(nameof(CBI_Progress));
             }
         }
 
@@ -92,19 +120,7 @@ namespace CW_WPF.ViewModel
             }
         }
 
-        public int Year_of_release
-        {
-            get
-            {
-                return book.year_of_release;
-            }
-            set
-            {
-                book.year_of_release = value;
-                RaisePropertiesChanged(nameof(Year_of_release));
-            }
-        }
-
+      
         public string Description
         {
             get
@@ -196,6 +212,7 @@ namespace CW_WPF.ViewModel
             try
             {
                 DB_GetItems db = new DB_GetItems();
+                DataBaseUser dbu = new DataBaseUser();
                 bool fl = true;
                 ErrorMes = "";
                 if (book.Title == String.Empty || book.Title == null || book.Author == String.Empty || book.Author == null || book.Description == null || book.Description == String.Empty || book.Image == null)
@@ -208,30 +225,18 @@ namespace CW_WPF.ViewModel
                     fl = false;
                     ErrorMes = Properties.Resources.rateerr;
                 }
-                if (book.Year_of_release > DateTime.Now.Year || book.Year_of_release < 0)
-                {
-                    fl = false;
-                    ErrorMes = Properties.Resources.yearerr;
-                }
+              
 
                 if (fl)
                 {
-                    foreach (Book b in UserBooksViewModel.All_UserBooks)
+                   
+                    if (db_User.GetIsAdminUser(Properties.Settings.Default.IdUser))
                     {
-                        if (b.Isbn == book.Isbn)
-                        {
-                            b.Isbn = book.Isbn;                           
-                            b.Author = book.Author;                            
-                            b.Description = book.Description;                           
-                            b.Image = book.Image;
-                            b.Original_language = book.Original_language;
-                            b.Rate = book.Rate;
-                            b.Title = book.Title;
-                            b.Year_of_release = book.Year_of_release; 
-                                }
-
+                        db.UpdateAdminBook(book);
                     }
-                    db.UpdateBook(book);
+                    else {
+                        dbu.AddProgress(progress, book);
+                        db.UpdateBook(book); }
                 }
             }
             catch (SystemException)

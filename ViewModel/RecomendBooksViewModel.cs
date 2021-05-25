@@ -52,6 +52,7 @@ namespace CW_WPF.ViewModel
             ObservableCollection<Book> result = new ObservableCollection<Book>();
             DB_GetItems db_GetItems = new DB_GetItems();
             books = db_GetItems.GetBook();
+            //books = AllBooksViewModel.All_Books;
             userBooks = db_GetItems.GetUserBook();
             foreach (Book ub in userBooks)
             {

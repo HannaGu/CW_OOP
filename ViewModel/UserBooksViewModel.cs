@@ -45,8 +45,47 @@ namespace CW_WPF.ViewModel
 
         private void OpenUserBookPage()
         {
-            Page BookInfo = new UserBookPage(All_UserBooks[Index], Obj);
-            Obj.CurrentPage = BookInfo;
+            if (Index >= 0)
+            {
+                Page BookInfo = new UserBookPage(All_UserBooks[Index], Obj);
+                Obj.CurrentPage = BookInfo;
+            }
+        }
+
+        public ICommand name_Sorting => new DelegateCommand(NameSorting);
+
+        private void NameSorting()
+        {
+            var nameOrdered = from b in All_UserBooks orderby b.Title select b;
+            int i = 0;
+            foreach (Book b in nameOrdered)
+            {
+                All_UserBooks.RemoveAt(i);
+                All_UserBooks.Insert(i, b);
+                i++;
+            }
+        }
+
+        public ICommand author_Sorting => new DelegateCommand(AuthorSorting);
+
+        private void AuthorSorting()
+        {
+            var nameOrdered = from b in All_UserBooks orderby b.Author select b;
+            int i = 0;
+            foreach (Book b in nameOrdered)
+            {
+                All_UserBooks.RemoveAt(i);
+                All_UserBooks.Insert(i, b);
+                i++;
+            }
+        }
+
+        public ICommand open_AddWindow => new DelegateCommand(Open_AddWindow);
+
+        private void Open_AddWindow()
+        {
+            AddWindow aw = new AddWindow();
+            aw.Show();
         }
     }
 }

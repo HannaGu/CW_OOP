@@ -27,7 +27,6 @@ namespace CW_WPF.ViewModel
             Title = selected_book.title;
             Author = selected_book.author;
             Original_language = selected_book.original_language;
-            Year_of_release = selected_book.year_of_release;
             Description = selected_book.description;
             Rate = selected_book.rate;
             Image = selected_book.image;
