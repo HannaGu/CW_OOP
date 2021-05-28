@@ -21,6 +21,7 @@ namespace CW_WPF.Model
         public byte[] image;
         public bool is_custom;
         public string ganre;
+        public string link;
       
         #region Properties       
         public string Isbn
@@ -30,6 +31,15 @@ namespace CW_WPF.Model
             {
                 isbn = value;
                 OnPropertyChanged("Isbn");
+            }
+        }
+        public string Link
+        {
+            get { return link; }
+            set
+            {
+                link = value;
+                OnPropertyChanged("Link");
             }
         }
 
@@ -146,7 +156,7 @@ namespace CW_WPF.Model
         #endregion
 
         public Book() { }
-        public Book(string isbn, string title, string author, string original_language, string description, int rate, byte[] image, string ganre, bool is_custom)
+        public Book(string isbn, string title, string author, string original_language, string description, int rate, byte[] image, string ganre, bool is_custom, string link)
         {
             this.isbn = isbn;
             this.title = title;
@@ -157,10 +167,11 @@ namespace CW_WPF.Model
             this.image = image;
             this.ganre = ganre;
             this.is_custom = is_custom;
+            this.link = link;
         
         }
-
-        public Book(string isbn, string title, string author, string original_language, string description, int rate, byte[] image, string ganre)
+        
+        public Book(string isbn, string title, string author, string original_language, string description, int rate, byte[] image, string ganre, string link)
         {
             this.isbn = isbn;
             this.title = title;
@@ -170,6 +181,7 @@ namespace CW_WPF.Model
             this.rate = rate;
             this.image = image;
             this.ganre = ganre;
+            this.link = link;
            
         }
 
