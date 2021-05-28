@@ -113,10 +113,10 @@ namespace CW_WPF.DB
                     SqlCommand command = new SqlCommand();
 
                     command.Connection = sqlCon;
-                    command.CommandText = @"Select isbn, title, original_language, description, rate, image, author, ganre From Books where is_custom=0";
+                    command.CommandText = @"Select isbn, title, original_language, description, rate, image, author, ganre, link From Books where is_custom=0";
 
                     SqlDataReader info = command.ExecuteReader();
-                    object isbn = -1, t = -1, a = -1, o_l = -1, y_r = -1, desc = -1, rate = -1, im = -1, gr = -1;
+                    object isbn = -1, t = -1, a = -1, o_l = -1, y_r = -1, desc = -1, rate = -1, im = -1, gr = -1, link=-1;
                     while (info.Read())
                     {
 
@@ -131,8 +131,9 @@ namespace CW_WPF.DB
                         a = info["author"];
                         gr = info["ganre"];
                         isbn = info["isbn"];
+                        link = info["link"];
 
-                        Book b = new Book(Convert.ToString(isbn), Convert.ToString(t), Convert.ToString(a), Convert.ToString(o_l), Convert.ToString(desc), Convert.ToInt32(rate), (byte[])im, Convert.ToString(gr));
+                        Book b = new Book(Convert.ToString(isbn), Convert.ToString(t), Convert.ToString(a), Convert.ToString(o_l), Convert.ToString(desc), Convert.ToInt32(rate), (byte[])im, Convert.ToString(gr), Convert.ToString(link));
                         books.Add(b);
                     }
                     return books;
@@ -156,12 +157,12 @@ namespace CW_WPF.DB
                     sqlCon.Open();
                     SqlCommand command = new SqlCommand();
                     command.Connection = sqlCon;
-                    command.CommandText = @"Select B.isbn, B.title, B.original_language, B.year_of_release, B.description, B.rate, B.image, B.author , B.ganre, B.is_custom
+                    command.CommandText = @"Select B.isbn, B.title, B.original_language, B.year_of_release, B.description, B.rate, B.image, B.author , B.ganre, B.is_custom, B.link
                                             from Books as B join User_Books as UB ON B.isbn=UB.isbn where UB.id_user= @id_user";
                     command.Parameters.Add("@id_user", SqlDbType.Int);
                     command.Parameters["@id_user"].Value = Properties.Settings.Default.IdUser;
                     SqlDataReader info = command.ExecuteReader();
-                    object isbn = -1, t = -1, a = -1, o_l = -1, y_r = -1, desc = -1, rate = -1, im = -1, gr = -1, is_c=-1;
+                    object isbn = -1, t = -1, a = -1, o_l = -1, y_r = -1, desc = -1, rate = -1, im = -1, gr = -1, is_c=-1, link=-1;
 
                     while (info.Read())
                     {
@@ -175,8 +176,9 @@ namespace CW_WPF.DB
                         a = info["author"];
                         gr = info["ganre"];
                         is_c = info["is_custom"];
+                        link = info["link"];
 
-                        Book b = new Book(Convert.ToString(isbn), Convert.ToString(t), Convert.ToString(a), Convert.ToString(o_l), Convert.ToString(desc), Convert.ToInt32(rate), (byte[])(im), Convert.ToString(gr), Convert.ToBoolean(is_c));
+                        Book b = new Book(Convert.ToString(isbn), Convert.ToString(t), Convert.ToString(a), Convert.ToString(o_l), Convert.ToString(desc), Convert.ToInt32(rate), (byte[])(im),Convert.ToString(gr), Convert.ToString(link));
                         books.Add(b);
                     }
                     return books;
@@ -217,34 +219,26 @@ namespace CW_WPF.DB
             }
         }
 
-        //internal void DeleteBook(Book b)
-        //{
-        //    using (SqlConnection sqlCon = new SqlConnection(StringConnection))
-        //    {
-        //        try
-        //        {
-        //            sqlCon.Open();
-        //            SqlCommand command = new SqlCommand();
-        //            command.Connection = sqlCon;
-        //            command.CommandText = @"SELECT TOP(1) isbn FROM Books WHERE title=@title ";
-        //            command.Parameters.Add("@title", SqlDbType.NVarChar, 40);
-        //            command.Parameters["@title"].Value = b.Title;
-        //            SqlDataReader info = command.ExecuteReader();
-        //            object isbn = -1; int id;
-        //            while (info.Read())
-        //            {
-        //                isbn = info["isbn"];
-        //            }
-        //            id = Convert.ToInt32(isbn);
+        internal void DeleteBook(Book b)
+        {
+            using (SqlConnection sqlCon = new SqlConnection(StringConnection))
+            {
+                try
+                {
+                    sqlCon.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = sqlCon;
+                    command.CommandText = @"Delete TOP(1) FROM Books WHERE isbn=@isbn ";
+                    command.Parameters.Add("@isbn", SqlDbType.Int);
+                    command.Parameters["@isbn"].Value =b.Isbn;
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
 
-        //            DeleteHelper(id);
-        //        }
-        //        catch (Exception e)
-        //        {
-
-        //        }
-        //    }
-        //}
+                }
+            }
+        }
 
 
         public void DeleteHelper(int id)
@@ -450,7 +444,6 @@ namespace CW_WPF.DB
                     command.Parameters.Add("@ganre", SqlDbType.NVarChar, 40);
                     command.Parameters.Add("@author", SqlDbType.NVarChar, 50);
                     command.Parameters.Add("@original_language", SqlDbType.NVarChar, 20);
-                    command.Parameters.Add("@year_of_release", SqlDbType.Int);
                     command.Parameters.Add("@description", SqlDbType.NVarChar, 500);
                     command.Parameters.Add("@rate", SqlDbType.Int);
                     command.Parameters.Add("@image", SqlDbType.Image, 1000000);

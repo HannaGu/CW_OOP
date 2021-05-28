@@ -123,6 +123,41 @@ namespace CW_WPF.DB
             }
         }
 
+        public Progress GetProgress(Book b)
+        {
+            Progress p = new Progress();
+            using (SqlConnection sqlCon = new SqlConnection(StringConnection))
+            {
+                try
+                {
+                    sqlCon.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = sqlCon;
+                    command.CommandText = @"select TOP(1) status  from Statistic where id_user=@id_user and isbn=@isbn order by date_change desc";
+
+                    command.Parameters.Add("@id_user", SqlDbType.Int);
+                    command.Parameters.Add("@isbn", SqlDbType.Int);
+                    command.Parameters["@id_user"].Value = Convert.ToString(Properties.Settings.Default.IdUser);
+                    command.Parameters["@isbn"].Value = b.isbn; 
+                    SqlDataReader info = command.ExecuteReader();
+                    object status = -1;
+
+                    while (info.Read())
+                    {
+                        status = info["status"];
+                        p.status = Convert.ToString(status);
+                    }
+
+
+                    return p;
+                }
+                catch (Exception e)
+                {
+                    return p;
+                }
+            }
+        }
+
         public ChartValues<int> GetProgressByGanre()
         {
             ChartValues<int> p = new ChartValues<int>();
