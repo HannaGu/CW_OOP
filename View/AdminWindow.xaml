@@ -15,19 +15,26 @@
 
         <Frame  Grid.Column="1" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
         <StackPanel>
-            <Button Grid.Column="0" HorizontalAlignment="Left" Content="{materialDesign:PackIcon Add}"  Margin="20" Command="{Binding open_AddWindow}"/>
+            <Image Source="/Resources/book-open-page-variant-outline.png" Width="50" Height="50" Margin="20"/>
 
-            <Menu Grid.Row="1" Grid.Column="0" FontSize="14" Background="Transparent">
+            <Menu Grid.Row="1" Grid.Column="0" FontSize="14" Background="Transparent" Margin="0 0 0 0" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1">
                 <Menu.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel Orientation="Vertical"/>
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
 
-                <MenuItem Margin="5"  Header="Библиотека" Command="{Binding open_Library}"/>
-                <MenuItem Margin="5"  Header="Пользователи" Command="{Binding open_Users}" ></MenuItem>
+                <MenuItem Margin="5"  Header="библиотека" Command="{Binding open_Library}"/>
+                <MenuItem Margin="5"  Header="пользователи" Command="{Binding open_Users}" ></MenuItem>
+                <MenuItem Margin="5"  Header="добавить книгу" Command="{Binding open_AddWindow}" ></MenuItem>
                
             </Menu>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Bottom" Margin="70">
+            <Button  Height="50" Width="50" Background="Black" Command="{Binding logout}" >
+                <materialDesign:PackIcon Kind="ExitRun" Height="30" Width="30" HorizontalAlignment="Center"/>
+            </Button>
+
         </StackPanel>
     </Grid>
 
