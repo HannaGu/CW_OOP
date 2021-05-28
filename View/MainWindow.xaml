@@ -18,7 +18,7 @@
          <Frame  Grid.Column="1" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
         <StackPanel>
             <Image Source="/Resources/book-open-page-variant-outline.png" Width="50" Height="50" Margin="20"/>
-            <Menu Grid.Row="1" Grid.Column="0" FontSize="14" Background="Transparent" Margin="20 0 20 0" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" >
+            <Menu Grid.Row="1" Grid.Column="0" FontSize="14" Background="Transparent" Margin="10 0 10 0" FontFamily="Arial Rounded MT Bold" Foreground="#515EC1" >
                 <Menu.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel Orientation="Vertical"/>
@@ -29,14 +29,14 @@
                 <MenuItem Height="50"  Header="избранное" Command="{Binding open_UserLibrary}" ></MenuItem>
                 <MenuItem Height="50"  Header="рекомендации" Command="{Binding open_Recom}" ></MenuItem>
 
-                <MenuItem Height="50" Header="статистика" >
+                <MenuItem Height="50" Header="статистика" Click="MenuItem_Click" >
                     <MenuItem Header="по количеству" Background="Transparent" Command="{Binding open_Stat}"/>
                     <MenuItem Header="по жанрам" Background="Transparent" Command="{Binding open_GanreStat}"/>
                 </MenuItem>
             </Menu>            
         </StackPanel>
         <StackPanel VerticalAlignment="Bottom" Margin="70">
-            <Button  Height="50" Width="50" Background="Black" Command="{Binding logout}">
+            <Button  Height="50" Width="50" Background="Black" Command="{Binding logout}" >
                 <materialDesign:PackIcon Kind="ExitRun" Height="30" Width="30" HorizontalAlignment="Center"/>
             </Button>
 

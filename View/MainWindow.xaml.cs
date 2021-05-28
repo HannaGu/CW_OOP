@@ -26,5 +26,15 @@ namespace CW_WPF.View
             DataContext = m;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
