@@ -31,5 +31,10 @@ namespace CW_WPF.View
             InitializeComponent();
             DataContext = ubvm;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
