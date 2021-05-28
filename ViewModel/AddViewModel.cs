@@ -187,6 +187,24 @@ namespace CW_WPF.ViewModel
         }
 
 
+        public ICommand open_File => new DelegateCommand(Open_File);
+        private void Open_File()
+        {
+            string FilePath = "";
+            if (OpenFile(ref FilePath))
+            {
+                try
+                {
+                    book.Link = FilePath;
+                    MessageBox.Show("Файл добавлен.", "Все хорошо!");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+        }
+
         #region AddImage
         public ICommand open_Image => new DelegateCommand(Open_Image);
         private void Open_Image()

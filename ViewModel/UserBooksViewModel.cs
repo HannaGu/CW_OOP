@@ -41,6 +41,18 @@ namespace CW_WPF.ViewModel
             }
         }
 
+
+
+        public ICommand open_PDF => new DelegateCommand(OpenPDF);
+
+        private void OpenPDF()
+        {
+            if (Index >= 0)
+            {
+
+            }
+        }
+
         public ICommand open_UserBookPage => new DelegateCommand(OpenUserBookPage);
 
         private void OpenUserBookPage()

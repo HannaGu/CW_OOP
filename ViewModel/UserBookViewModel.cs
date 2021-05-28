@@ -21,12 +21,11 @@ namespace CW_WPF.ViewModel
         public static Book selected_book;
         Progress p = new Progress();
         DataBaseUser dbu = new DataBaseUser();
-       
-        DateTime today = DateTime.Today;
+        DateTime today = DateTime.Now;
 
         public UserBookViewModel(Book obj1, UserLibraryViewModel obj2)
         {
-            //p = dbu.GetProgress();
+            p.status= dbu.GetProgress(obj1).status;
             selected_book = obj1;
             boss_page = obj2;
 
@@ -41,8 +40,12 @@ namespace CW_WPF.ViewModel
 
             if (selected_book.Is_Custom == false)
             {
-                VisibilityIfCustom=Visibility.Hidden;
+                UpdateButVisibility = Visibility.Hidden;
+                StatusCBVisibility = Visibility.Hidden;
+               
             }
+            else { EditButVisibility = Visibility.Hidden; 
+                StatusCBVisibility = Visibility.Hidden; }
         }
 
 
@@ -71,13 +74,44 @@ namespace CW_WPF.ViewModel
             }
         }
 
-        private Visibility visibilityIfCustom;
-        public Visibility VisibilityIfCustom
+        private Visibility editButVisibility;
+        public Visibility EditButVisibility
         {
-            get { return visibilityIfCustom; }
-            set { visibilityIfCustom = value; RaisePropertiesChanged(nameof(VisibilityIfCustom)); }
+            get { return editButVisibility; }
+            set { editButVisibility = value; RaisePropertiesChanged(nameof(EditButVisibility)); }
         }
 
+        private Visibility statusCBVisibility;
+        public Visibility StatusCBVisibility
+        {
+            get { return statusCBVisibility; }
+            set { statusCBVisibility = value; RaisePropertiesChanged(nameof(StatusCBVisibility)); }
+        }
+
+        private Visibility updateButVisibility;
+        public Visibility UpdateButVisibility
+        {
+            get { return updateButVisibility; }
+            set { updateButVisibility = value; RaisePropertiesChanged(nameof(UpdateButVisibility)); }
+        }
+
+
+
+        ComboBoxItem cbi_progress;
+        public ComboBoxItem CBI_Progress
+        {
+            get
+            {
+                return cbi_progress;
+            }
+            set
+            {
+                cbi_progress = value;
+                p.date_change = today;
+                Status = cbi_progress.Content.ToString();
+                RaisePropertiesChanged(nameof(CBI_Progress));
+            }
+        }
 
 
         #region Properties
@@ -206,6 +240,7 @@ namespace CW_WPF.ViewModel
             Page UserBooks_page = new UserBooksPage(boss_page);
             boss_page.CurrentPage = UserBooks_page;
         }
+
         public ICommand delete => new DelegateCommand(Delete);
         private void Delete()
         {         
@@ -213,19 +248,28 @@ namespace CW_WPF.ViewModel
             db.DeleteUserBook(selected_book);
             UserBooksViewModel.All_UserBooks.Remove(selected_book);
             Page UserBooks_page = new UserBooksPage(boss_page);
-            boss_page.CurrentPage = UserBooks_page;}
+            boss_page.CurrentPage = UserBooks_page;
+        }
 
-        public ICommand update => new DelegateCommand(Update, CanUpdate);
+        public ICommand update => new DelegateCommand(Update);
         private void Update()
         {
             UpdateWindow uw = new UpdateWindow(selected_book);
             uw.Show();            
         }
-        private bool CanUpdate()
+
+        public ICommand edit=> new DelegateCommand(Edit);
+        private void Edit()
         {
-            if (selected_book.Is_Custom)
-                return true;
-            else return false;
+            if(StatusCBVisibility== Visibility.Hidden)
+            StatusCBVisibility = Visibility.Visible;
+            else {
+                dbu.AddProgress(p, selected_book);
+                StatusCBVisibility = Visibility.Hidden; }
+
+           
+
+
         }
     }
 }

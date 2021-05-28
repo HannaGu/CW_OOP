@@ -20,7 +20,7 @@ namespace CW_WPF.ViewModel
         DataBaseUser db_User = new DataBaseUser();
         Book book = new Book();
         Progress progress = new Progress();
-        DateTime today = DateTime.Today;
+        DateTime today = DateTime.Now;
         public UpdateViewModel(Book b)
         {
             book = b;
@@ -236,7 +236,9 @@ namespace CW_WPF.ViewModel
                     }
                     else {
                         dbu.AddProgress(progress, book);
-                        db.UpdateBook(book); }
+                        db.UpdateBook(book);
+                        MessageBox.Show("Изменения сохранены.", "Все хорошо!");
+                    }
                 }
             }
             catch (SystemException)

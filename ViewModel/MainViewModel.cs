@@ -46,13 +46,13 @@ namespace CW_WPF.ViewModel
         public MainViewModel()
         {
             Main = new MainPage();
-           // Library = new LibraryPage();
+            Library = new LibraryPage();
             Users = new UserLibraryPage();
             Recomend = new RecomendationsPage();
             Statistics = new StatisticsPage();
             GanreStatistics = new GanreStatView();
            
-            CurrentPage = Main;
+            CurrentPage = Library;
         }
         private Page Main;
         private Page Library;

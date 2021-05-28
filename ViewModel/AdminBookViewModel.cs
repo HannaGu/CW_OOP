@@ -197,8 +197,8 @@ namespace CW_WPF.ViewModel
         private void Delete()
         {
             DB_GetItems db = new DB_GetItems();
-            //db.DeleteUserBook(selected_book);
-            //UserBooksViewModel.All_UserBooks.Remove(selected_book);
+            db.DeleteBook(selected_book);
+            AllBooksViewModel.All_Books.Remove(selected_book);
             Page AllBooks = new AllBooksPage(boss_page);
             boss_page.CurrentPage = AllBooks;
 

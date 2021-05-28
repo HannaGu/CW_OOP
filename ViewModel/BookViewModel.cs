@@ -11,6 +11,7 @@ using CW_WPF.View;
 using CW_WPF.DB;
 using System.Windows.Controls;
 using System.Windows;
+using System.Diagnostics;
 
 namespace CW_WPF.ViewModel
 {
@@ -190,6 +191,19 @@ namespace CW_WPF.ViewModel
             db.InsertToUserLib(Convert.ToInt32(selected_book.Isbn));
             UserBooksViewModel.All_UserBooks.Add(selected_book);
             MessageBox.Show("Книга добавлена в 'Избрранное'", "Все хорошо!");
+        }
+
+        public ICommand download_Book => new DelegateCommand(DownloadBook);
+
+        private void DownloadBook()
+        {
+            new Process
+            {
+                StartInfo = new ProcessStartInfo($"{selected_book.link}")
+                {
+                    UseShellExecute = true
+                }
+            }.Start();
         }
     }
 }

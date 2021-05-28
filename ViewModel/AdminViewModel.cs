@@ -50,7 +50,7 @@ namespace CW_WPF.ViewModel
             Library = new LibraryPage();
             AdminView_Users = new AdminView_Users();            
 
-            CurrentPage = Main;
+            CurrentPage =Library;
         }
         private Page Main;
         private Page Library;
@@ -73,6 +73,7 @@ namespace CW_WPF.ViewModel
 
         private void Open_Library()
         {
+            Library = new LibraryPage();
             CurrentPage = Library;
         }
 
