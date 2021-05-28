@@ -1,0 +1,15 @@
+﻿<Page x:Class="CW_WPF.View.LibraryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CW_WPF.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="900" Background="#C2C3C3"
+      Title="LibraryPage">
+
+   
+    <Grid>
+            <Frame Content="{Binding CurrentPage}" Height="550" VerticalAlignment="Bottom"/>
+    </Grid>
+</Page>
